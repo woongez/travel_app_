@@ -67,6 +67,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - image/infinity.jpg
+    - image/background1.jpg
+    - image/background2.jpg
+    - image/background3.jpg
+    - image/background4.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -90,6 +94,13 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
+  fonts:
+      - family: jeju
+        fonts:
+          - asset: assets/fonts/JejuGothic.ttf
+          - asset: assets/fonts/JejuHallasan.ttf
+            weight: 700
+          - asset: assets/fonts/JejuMyeongjo.ttf
+            weight: 300
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

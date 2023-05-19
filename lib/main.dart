@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Travel app',
       theme: ThemeData(
-          primarySwatch: Colors.blue
+          primarySwatch: Colors.blue,
+          fontFamily: 'jeju'
       ),
       home: const LoginSignupScreen(),
     );

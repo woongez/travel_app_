@@ -41,10 +41,10 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               right: 0,
               left: 0,
               child: Container(
-                height: 300,
+                height: 700,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('image/infinity.jpg'), fit: BoxFit.fill),
+                      image: AssetImage('image/background2.jpg'), fit: BoxFit.fill),
                 ),
                 child: Container(
                   padding: const EdgeInsets.only(top: 90, left: 20),
@@ -53,34 +53,36 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                     children: [
                       RichText(
                         text: TextSpan(
-                          text: 'Welcome',
+                          text: '여행 플러스에',
                           style: const TextStyle(
                               letterSpacing: 1.0,
-                              fontSize: 25,
+                              fontSize: 23,
+                              fontFamily: 'jeju',
                               color: Colors.white),
                           children: [
                             TextSpan(
                               text:
-                              isSignupScreen ? ' to Travel plus!' : ' to Travel plus!',
+                              isSignupScreen ? ' 오신 것을 환영합니다!' : ' 오신 것을 환영합니다!',
                               style: const TextStyle(
                                 letterSpacing: 1.0,
-                                fontSize: 25,
+                                fontSize: 23,
+                                fontFamily: 'jeju',
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(
-                        height: 5.0,
+                        height: 10,
                       ),
                       Text(
                         isSignupScreen
-                            ? 'Signup to continue'
-                            : 'Signin to continue',
+                            ? '계속하려면 회원가입을 해주세요.'
+                            : '계속하려면 로그인을 해주세요.',
                         style: const TextStyle(
-                          letterSpacing: 1.0,
+                          letterSpacing: 1.3,
+                          fontFamily: 'jeju',
                           color: Colors.white,
                         ),
                       ),
@@ -93,13 +95,13 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.easeIn,
-              top: 180,
+              top: 200,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeIn,
                 padding: const EdgeInsets.all(20.0),
                 height: isSignupScreen ? 280.0 : 250.0,
-                width: MediaQuery.of(context).size.width - 40,
+                width: MediaQuery.of(context).size.width-40,
                 margin: const EdgeInsets.symmetric(horizontal: 20.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -127,7 +129,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                             child: Column(
                               children: [
                                 Text(
-                                  'LOGIN',
+                                  '로그인',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -140,7 +142,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     margin: const EdgeInsets.only(top: 3),
                                     height: 2,
                                     width: 55,
-                                    color: Colors.blue,
+                                    color: Colors.blue[300],
                                   )
                               ],
                             ),
@@ -154,7 +156,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                             child: Column(
                               children: [
                                 Text(
-                                  'SIGNUP',
+                                  '회원가입',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -167,7 +169,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     margin: const EdgeInsets.only(top: 3),
                                     height: 2,
                                     width: 55,
-                                    color: Colors.blue,
+                                    color: Colors.blue[300],
                                   )
                               ],
                             ),
@@ -214,7 +216,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                           Radius.circular(35.0),
                                         ),
                                       ),
-                                      hintText: 'User name',
+                                      hintText: '이름',
                                       hintStyle: TextStyle(
                                           fontSize: 14,
                                           color: Palette.textColor1),
@@ -258,7 +260,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                           Radius.circular(35.0),
                                         ),
                                       ),
-                                      hintText: 'email',
+                                      hintText: '이메일',
                                       hintStyle: TextStyle(
                                           fontSize: 14,
                                           color: Palette.textColor1),
@@ -301,7 +303,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                           Radius.circular(35.0),
                                         ),
                                       ),
-                                      hintText: 'password',
+                                      hintText: '패스워드',
                                       hintStyle: TextStyle(
                                           fontSize: 14,
                                           color: Palette.textColor1),
@@ -352,7 +354,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                           Radius.circular(35.0),
                                         ),
                                       ),
-                                      hintText: 'email',
+                                      hintText: '이메일',
                                       hintStyle: TextStyle(
                                           fontSize: 14,
                                           color: Palette.textColor1),
@@ -394,7 +396,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                           Radius.circular(35.0),
                                         ),
                                       ),
-                                      hintText: 'password',
+                                      hintText: '패스워드',
                                       hintStyle: TextStyle(
                                           fontSize: 14,
                                           color: Palette.textColor1),
@@ -413,7 +415,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.easeIn,
-              top: isSignupScreen ? 430 : 390,
+              top: isSignupScreen ? 430 : 400,
               right: 0,
               left: 0,
               child: Center(
@@ -452,7 +454,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content:
-                              Text('Please check your email and password'),
+                              Text('이메일과 비밀번호를 확인해주세요.'),
                               backgroundColor: Colors.blue,
                             ),
                           );
@@ -486,7 +488,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                            colors: [Colors.blue, Colors.lightBlueAccent],
+                            colors: [Colors.blue, Colors.white70],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight),
                         borderRadius: BorderRadius.circular(30),
@@ -508,36 +510,6 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                 ),
               ),
             ),
-            //전송버튼
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeIn,
-              top: isSignupScreen
-                  ? MediaQuery.of(context).size.height - 125
-                  : MediaQuery.of(context).size.height - 165,
-              right: 0,
-              left: 0,
-              child: Column(
-                children: [
-                  Text(isSignupScreen ? 'or Signup with' : 'or Signin with'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextButton.icon(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        minimumSize: const Size(155, 40),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        backgroundColor: Colors.blue),
-                    icon: const Icon(Icons.add),
-                    label: const Text('Google'),
-                  ),
-                ],
-              ),
-            ),
-            //구글 로그인 버튼
           ],
         ),
       ),
