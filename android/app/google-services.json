@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "965636334412",
+    "project_id": "travel-login-6f162",
+    "storage_bucket": "travel-login-6f162.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965636334412:android:d3a29de140b0b3a610a5e9",
+        "android_client_info": {
+          "package_name": "com.example.travel_login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965636334412-kqom8gqre7mnrgpdq460e78merb5g05u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6hlsGpE36Q1fLi4jMo37CGNY6LResEZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965636334412-kqom8gqre7mnrgpdq460e78merb5g05u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
