@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_login/config/Palette.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:travel_login/screens/travel_screen.dart';
 
 class LoginSignupScreen extends StatefulWidget {
   const LoginSignupScreen({Key? key}) : super(key: key);
@@ -9,15 +11,17 @@ class LoginSignupScreen extends StatefulWidget {
 }
 
 class _LoginSignupScreenState extends State<LoginSignupScreen> {
+  final _authentication = FirebaseAuth.instance;
+
   bool isSignupScreen = true;
   final _formKey = GlobalKey<FormState>();
   String userName = '';
   String userEmail = '';
   String userPassword = '';
 
-  void _tryValidation(){
+  void _tryValidation() {
     final isValid = _formKey.currentState!.validate();
-    if(isValid){
+    if (isValid) {
       _formKey.currentState!.save();
     }
   }
@@ -27,7 +31,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     return Scaffold(
       backgroundColor: Palette.backgroundColor,
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScope.of(context).unfocus();
         },
         child: Stack(
@@ -56,7 +60,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               color: Colors.white),
                           children: [
                             TextSpan(
-                              text: isSignupScreen ? ' to Travel plus ! ' : ' to Travel plus !',
+                              text:
+                              isSignupScreen ? ' to Travel plus!' : ' to Travel plus!',
                               style: const TextStyle(
                                 letterSpacing: 1.0,
                                 fontSize: 25,
@@ -71,7 +76,9 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                         height: 5.0,
                       ),
                       Text(
-                        isSignupScreen ? 'Signup to continue' : 'Signin to continue',
+                        isSignupScreen
+                            ? 'Signup to continue'
+                            : 'Signin to continue',
                         style: const TextStyle(
                           letterSpacing: 1.0,
                           color: Colors.white,
@@ -167,7 +174,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           )
                         ],
                       ),
-                      if(isSignupScreen)
+                      if (isSignupScreen)
                         Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: Form(
@@ -176,14 +183,17 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               children: [
                                 TextFormField(
                                   key: const ValueKey(1),
-                                  validator: (value){
-                                    if(value!.isEmpty || value!.length < 4){
+                                  validator: (value) {
+                                    if (value!.isEmpty || value.length < 4) {
                                       return '4자 이상 입력해주세요';
                                     }
                                     return null;
                                   },
-                                  onSaved: (value){
+                                  onSaved: (value) {
                                     userName = value!;
+                                  },
+                                  onChanged: (value) {
+                                    userName = value;
                                   },
                                   decoration: const InputDecoration(
                                       prefixIcon: Icon(
@@ -191,37 +201,43 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                         color: Palette.iconColor,
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       hintText: 'User name',
                                       hintStyle: TextStyle(
-                                          fontSize: 14, color: Palette.textColor1),
+                                          fontSize: 14,
+                                          color: Palette.textColor1),
                                       contentPadding: EdgeInsets.all(10)),
                                 ),
                                 const SizedBox(
                                   height: 8,
                                 ),
                                 TextFormField(
+                                  keyboardType: TextInputType.emailAddress,
                                   key: const ValueKey(2),
-                                  validator: (value){
-                                    if(value!.isEmpty || !value.contains('@')){
+                                  validator: (value) {
+                                    if (value!.isEmpty ||
+                                        !value.contains('@')) {
                                       return '유효한 이메일 주소를 입력하세요.';
                                     }
                                     return null;
                                   },
-                                  onSaved: (value){
+                                  onSaved: (value) {
                                     userEmail = value!;
+                                  },
+                                  onChanged: (value) {
+                                    userEmail = value;
                                   },
                                   decoration: const InputDecoration(
                                       prefixIcon: Icon(
@@ -229,37 +245,42 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                         color: Palette.iconColor,
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       hintText: 'email',
                                       hintStyle: TextStyle(
-                                          fontSize: 14, color: Palette.textColor1),
+                                          fontSize: 14,
+                                          color: Palette.textColor1),
                                       contentPadding: EdgeInsets.all(10)),
                                 ),
                                 const SizedBox(
                                   height: 8,
                                 ),
                                 TextFormField(
+                                  obscureText: true,
                                   key: const ValueKey(3),
-                                  validator: (value){
-                                    if(value!.isEmpty || value.length < 6){
-                                      return '비밀번호는 7자 이상이어야 합니다.';
+                                  validator: (value) {
+                                    if (value!.isEmpty || value.length < 6) {
+                                      return '비밀번호는 6자 이상이어야 합니다.';
                                     }
                                     return null;
                                   },
-                                  onSaved: (value){
+                                  onSaved: (value) {
                                     userPassword = value!;
+                                  },
+                                  onChanged: (value) {
+                                    userPassword = value;
                                   },
                                   decoration: const InputDecoration(
                                       prefixIcon: Icon(
@@ -267,29 +288,30 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                         color: Palette.iconColor,
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       hintText: 'password',
                                       hintStyle: TextStyle(
-                                          fontSize: 14, color: Palette.textColor1),
+                                          fontSize: 14,
+                                          color: Palette.textColor1),
                                       contentPadding: EdgeInsets.all(10)),
                                 )
                               ],
                             ),
                           ),
                         ),
-                      if(!isSignupScreen)
+                      if (!isSignupScreen)
                         Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: Form(
@@ -298,14 +320,18 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               children: [
                                 TextFormField(
                                   key: const ValueKey(4),
-                                  validator: (value){
-                                    if(value!.isEmpty || !value.contains('@') ){
+                                  validator: (value) {
+                                    if (value!.isEmpty ||
+                                        !value.contains('@')) {
                                       return '유효한 이메일 주소를 입력하세요.';
                                     }
                                     return null;
                                   },
-                                  onSaved: (value){
+                                  onSaved: (value) {
                                     userEmail = value!;
+                                  },
+                                  onChanged: (value) {
+                                    userEmail = value;
                                   },
                                   decoration: const InputDecoration(
                                       prefixIcon: Icon(
@@ -313,22 +339,23 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                         color: Palette.iconColor,
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       hintText: 'email',
                                       hintStyle: TextStyle(
-                                          fontSize: 14, color: Palette.textColor1),
+                                          fontSize: 14,
+                                          color: Palette.textColor1),
                                       contentPadding: EdgeInsets.all(10)),
                                 ),
                                 const SizedBox(
@@ -336,14 +363,17 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                 ),
                                 TextFormField(
                                   key: const ValueKey(5),
-                                  validator: (value){
-                                    if(value!.isEmpty || value.length < 6){
-                                      return '비밀번호는 7자 이상이어야 합니다.';
+                                  validator: (value) {
+                                    if (value!.isEmpty || value.length < 6) {
+                                      return '비밀번호는 6자 이상이어야 합니다.';
                                     }
                                     return null;
                                   },
-                                  onSaved: (value){
+                                  onSaved: (value) {
                                     userPassword = value!;
+                                  },
+                                  onChanged: (value) {
+                                    userPassword = value;
                                   },
                                   decoration: const InputDecoration(
                                       prefixIcon: Icon(
@@ -351,22 +381,23 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                         color: Palette.iconColor,
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.textColor1),
+                                        borderSide: BorderSide(
+                                            color: Palette.textColor1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(35.0),
                                         ),
                                       ),
                                       hintText: 'password',
                                       hintStyle: TextStyle(
-                                          fontSize: 14, color: Palette.textColor1),
+                                          fontSize: 14,
+                                          color: Palette.textColor1),
                                       contentPadding: EdgeInsets.all(10)),
                                 )
                               ],
@@ -394,8 +425,63 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(50)),
                   child: GestureDetector(
-                    onTap: (){
-                      _tryValidation();
+                    onTap: () async {
+                      if (isSignupScreen) {
+                        _tryValidation();
+
+                        try {
+                          final newUser = await _authentication
+                              .createUserWithEmailAndPassword(
+                            email: userEmail,
+                            password: userPassword,
+                          );
+
+                          if (newUser.user != null) {
+                            if (!mounted) return;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const TravelScreen();
+                                },
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          print(e);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                              Text('Please check your email and password'),
+                              backgroundColor: Colors.blue,
+                            ),
+                          );
+                        }
+                      }
+                      if (!isSignupScreen) {
+                        _tryValidation();
+
+                        try {
+                          final newUser =
+                          await _authentication.signInWithEmailAndPassword(
+                            email: userEmail,
+                            password: userPassword,
+                          );
+                          if (newUser.user != null) {
+                            if (!mounted) return;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return TravelScreen();
+                                },
+                              ),
+                            );
+                          }
+                        }catch(e){
+                          print(e);
+                        }
+                      }
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -426,8 +512,9 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.easeIn,
-              top: isSignupScreen ? MediaQuery.of(context).size.height - 125
-                  :MediaQuery.of(context).size.height - 165,
+              top: isSignupScreen
+                  ? MediaQuery.of(context).size.height - 125
+                  : MediaQuery.of(context).size.height - 165,
               right: 0,
               left: 0,
               child: Column(
@@ -437,15 +524,13 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                     height: 10,
                   ),
                   TextButton.icon(
-                    onPressed: (){},
+                    onPressed: () {},
                     style: TextButton.styleFrom(
                         primary: Colors.white,
                         minimumSize: const Size(155, 40),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        backgroundColor: Colors.blue,
-                    ),
+                            borderRadius: BorderRadius.circular(20)),
+                        backgroundColor: Colors.blue),
                     icon: const Icon(Icons.add),
                     label: const Text('Google'),
                   ),
