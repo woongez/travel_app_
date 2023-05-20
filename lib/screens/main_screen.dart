@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:travel_login/config/Palette.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:travel_login/screens/travel_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginSignupScreen extends StatefulWidget {
   const LoginSignupScreen({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
   final _authentication = FirebaseAuth.instance;
 
   bool isSignupScreen = true;
+  bool showSpinner = false;
   final _formKey = GlobalKey<FormState>();
   String userName = '';
   String userEmail = '';
@@ -30,7 +33,9 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palette.backgroundColor,
-      body: GestureDetector(
+      body: ModalProgressHUD(
+      inAsyncCall: showSpinner,
+      child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
         },
@@ -428,6 +433,9 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       borderRadius: BorderRadius.circular(50)),
                   child: GestureDetector(
                     onTap: () async {
+                      setState(() {
+                        showSpinner = true;
+                      });
                       if (isSignupScreen) {
                         _tryValidation();
 
@@ -448,6 +456,9 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                 },
                               ),
                             );
+                            setState(() {
+                              showSpinner = false;
+                            });
                           }
                         } catch (e) {
                           print(e);
@@ -513,6 +524,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           ],
         ),
       ),
+    ),
     );
   }
 }
