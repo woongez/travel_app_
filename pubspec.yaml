@@ -19,6 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
+
 environment:
   sdk: '>=2.18.6 <3.0.0'
 
@@ -36,7 +37,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  cloud_firestore: ^4.4.3
+  cloud_firestore: ^4.4.4
+  firebase_auth: ^4.2.10
+  firebase_core: ^2.7.1
+  modal_progress_hud_nsn: ^0.1.0-nullsafety-1
+
 
 dev_dependencies:
   flutter_test:
@@ -61,9 +66,12 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - image/infinity.jpg
+    - image/background1.jpg
+    - image/background2.jpg
+    - image/background3.jpg
+    - image/background4.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -87,6 +95,13 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
+  fonts:
+      - family: jeju
+        fonts:
+          - asset: assets/fonts/JejuGothic.ttf
+          - asset: assets/fonts/JejuHallasan.ttf
+            weight: 700
+          - asset: assets/fonts/JejuMyeongjo.ttf
+            weight: 300
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
